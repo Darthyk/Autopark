@@ -2,22 +2,18 @@ package com.darthyk.autopark.controller;
 
 import com.darthyk.autopark.dto.VehicleDto;
 import com.darthyk.autopark.service.VehicleService;
-import java.util.List;
-import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/v1/vehicle")
-@RequiredArgsConstructor
-@AllArgsConstructor
 public class VehicleController {
 
+    @Autowired
     private VehicleService vehicleService;
 
     @PostMapping
@@ -31,8 +27,9 @@ public class VehicleController {
         return vehicleService.getVehicle(id);
     }
 
-    @GetMapping("/all")
-    public List<VehicleDto> getAllVehicles() {
-        return vehicleService.getAllVehicles();
+    @GetMapping("/vehicles")
+    public String index(Model model) {
+        model.addAttribute("vehicleList", vehicleService.getAllVehicles());
+        return "index";
     }
 }
