@@ -10,6 +10,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class VehicleDto {
+    private Long id;
     private BrandDto brand;
     private Integer price;
     private Integer enginePower;

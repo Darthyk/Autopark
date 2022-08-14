@@ -1,8 +1,8 @@
 import {getVehicles} from "./actions";
 import {connect} from "react-redux";
 import React, {Component} from 'react';
-import Table from 'react-bootstrap/Table';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
+import BootstrapTable from 'react-bootstrap-table-next';
 
 class App extends Component {
 
@@ -10,24 +10,42 @@ class App extends Component {
         this.props.getVehicles();
     }
 
-    renderTableRows(data) {
-        if (data !== null) {
+    columns = [{
+        dataField: 'enginePower',
+        text: 'Engine power',
+        style: {
+            width: '200px'
+        },
+        align: 'center'
+    }, {
+        dataField: 'productionYear',
+        text: 'Production year',
+        style: {
+            width: '200px'
+        },
+        align: 'center'
+    }, {
+        dataField: 'price',
+        text: 'Price',
+        style: {
+            width: '200px'
+        },
+        align: 'center'
+    }];
 
-            data.map((row, index) => {
-                console.log("ROW", row);
-                return (
-                    <tr key={index}>
-                        <td>{row.name}</td>
-                        <td>{row.enginePower}</td>
-                        <td>{row.productionYear}</td>
-                        <td>{row.price}</td>
-                    </tr>
-                );
-            })
-        }
-
-
-    }
+    expandRow = {
+        onlyOneExpanding: true,
+        showExpandColumn: true,
+        renderer: row => (
+            <div>
+                <p>{row.brand.name}</p>
+                <p>Car type: {row.brand.vehicleType}</p>
+                <p>Carrying: {row.brand.carrying}</p>
+                <p>Gas tank: {row.brand.gasTank}</p>
+                <p>Passenger load: {row.brand.loadCapacity}</p>
+            </div>
+        )
+    };
 
     render () {
       return (
@@ -36,30 +54,13 @@ class App extends Component {
                   <h1>Autopark</h1>
               </header>
 
-              <div>
-                  <Table striped bordered hover>
-                      <thead>
-                      <tr>
-                          <th>Name</th>
-                          <th>Engine power</th>
-                          <th>Production year</th>
-                          <th>Price</th>
-                      </tr>
-                      </thead>
-                      <tbody>
-                        {this.props.vehicles.map((row, index) => {
-                            console.log("ROW", row);
-                            return (
-                                <tr key={index}>
-                                    <td>{row.name}</td>
-                                    <td>{row.enginePower}</td>
-                                    <td>{row.productionYear}</td>
-                                    <td>{row.price}</td>
-                                </tr>
-                            );
-                        })}
-                      </tbody>
-                  </Table>
+              <div className='myTable'>
+                  <BootstrapTable
+                    keyField='id'
+                    data={this.props.vehicles}
+                    columns={this.columns}
+                    expandRow={this.expandRow}
+                  />
               </div>
           </div>
       );
