@@ -10,7 +10,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class VehicleDto {
-    private String name;
+    private BrandDto brand;
     private Integer price;
     private Integer enginePower;
     private Integer productionYear;

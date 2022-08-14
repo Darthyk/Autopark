@@ -32,4 +32,36 @@
         </createTable>
     </changeSet>
 
+    <changeSet  author="darthyk"  id="2">
+        <modifyDataType columnName="name"
+                         newDataType="bigint"
+                         schemaName="public"
+                         tableName="vehicles"/>
+        <renameColumn columnDataType="bigint"
+                       newColumnName="brand_id"
+                       oldColumnName="name"
+                       schemaName="public"
+                       tableName="vehicles"/>
+        <createTable tableName="brand">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="vehicle_type" type="varchar(30)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="gas_tank" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="carrying" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="load_capacity" type="int">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
 </databaseChangeLog>
